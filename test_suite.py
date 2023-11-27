@@ -20,7 +20,10 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 def pushMotor():
     GPIO.output(15, GPIO.HIGH)
+    GPIO.output(11, GPIO.HIGH)
     time.sleep(10)
+    GPIO.output(15, 0)
+    GPIO.output(11, 0)
     #GPIO.output(15, GPIO.LOW)
     #time.sleep(10)
 
@@ -55,5 +58,6 @@ def soundSensor(channel, pin):
 while True: 
     pushMotor()
     #time.sleep(0.5)
-    blinkLED(1,11,0.2)
+    #blinkLED(1,11,0.2)
     #soundSensor(1,11)
+    break
