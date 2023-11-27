@@ -22,6 +22,7 @@ def pushMotor():
     GPIO.output(15, GPIO.HIGH)
     time.sleep(10)
     GPIO.output(15, GPIO.LOW)
+    time.sleep(10)
 
 def blinkLED(times, pin, interval):
     for i in range(times):
@@ -53,6 +54,6 @@ def soundSensor(channel, pin):
             time.sleep(0.1)
 while True: 
     pushMotor()
-    time.sleep(0.5)
+    #time.sleep(0.5)
     blinkLED(1,11,0.2)
     #soundSensor(1,11)
