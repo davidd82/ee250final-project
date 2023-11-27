@@ -20,6 +20,8 @@ def my_link():
   client.loop_start()
   client.publish("davidd82/light", "LIGHT_STATUS")
   client.publish("davidd82/sound", "SOUND_STATUS")
+  client.publish("davidd82/csv", "MAKE_CSV")
+
   print('Published message')
 
   

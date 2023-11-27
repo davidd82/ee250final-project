@@ -7,6 +7,10 @@ Run rpi_pub_and_sub.py on your Raspberry Pi."""
 import paho.mqtt.client as mqtt
 import time
 
+
+# importing pandas as pd
+import pandas as pd
+
 # Import SPI library (for hardware SPI) and MCP3008 library.
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
@@ -22,20 +26,39 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(11,GPIO.OUT)
 
+# Lists for sound and light values [5 data points each]
+sound = []
+light = []
+
+# Dictionary for both lists
+
 def light_status(client, userdata, message):
+    light.clear()
     for i in range (5):
         light_val = mcp.read_adc(0)
         print(light_val)
+        light.append(light_val)
 
         time.sleep(1)
 
 def sound_status(client, userdata, message):
+    sound.clear()
     for i in range(5):
         sound_val = mcp.read_adc(1)
         print(sound_val)
+        sound.append(sound_val)
             
         time.sleep(1)
 
+def make_csv(client, userdata, message):
+    # Dictionary for both lists
+    dict = {'sound': sound, 'light': light}
+
+    df = pd.DataFrame(dict)
+
+    print(df)
+
+    df.to_csv('data-points.csv', header = True, index = False)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -45,6 +68,8 @@ def on_connect(client, userdata, flags, rc):
     client.message_callback_add("davidd82/light", light_status)
     client.subscribe("davidd82/sound")
     client.message_callback_add("davidd82/sound", sound_status)
+    client.subscribe("davidd82/csv")
+    client.message_callback_add("davidd82/csv", make_csv)
 
 #Default message callback. Please use custom callbacks.
 def on_message(client, userdata, msg):
