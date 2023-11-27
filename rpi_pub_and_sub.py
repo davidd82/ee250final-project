@@ -30,24 +30,22 @@ GPIO.setup(11,GPIO.OUT)
 sound = []
 light = []
 
-# Dictionary for both lists
 
-def light_status(client, userdata, message):
+def light_sound_status(client, userdata, message):
     light.clear()
+    sound.clear()
+
     for i in range (5):
         light_val = mcp.read_adc(0)
+        print("Light: ", i)
         print(light_val)
         light.append(light_val)
 
-        time.sleep(1)
-
-def sound_status(client, userdata, message):
-    sound.clear()
-    for i in range(5):
         sound_val = mcp.read_adc(1)
+        print("Sound: ", i)
         print(sound_val)
         sound.append(sound_val)
-            
+
         time.sleep(1)
 
 def make_csv(client, userdata, message):
@@ -64,10 +62,8 @@ def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
     #subscribe to topics of interest here
-    client.subscribe("davidd82/light")
-    client.message_callback_add("davidd82/light", light_status)
-    client.subscribe("davidd82/sound")
-    client.message_callback_add("davidd82/sound", sound_status)
+    client.subscribe("davidd82/light_and_sound")
+    client.message_callback_add("davidd82/light_and_sound", light_sound_status)
     client.subscribe("davidd82/csv")
     client.message_callback_add("davidd82/csv", make_csv)
 
