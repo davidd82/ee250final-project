@@ -20,7 +20,7 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 
 def pushMotor():
     GPIO.output(15, GPIO.HIGH)
-    time.sleep(2)
+    time.sleep(10)
     GPIO.output(15, GPIO.LOW)
 
 def blinkLED(times, pin, interval):
