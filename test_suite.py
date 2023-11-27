@@ -53,6 +53,6 @@ def soundSensor(channel, pin):
             time.sleep(0.1)
 while True: 
     pushMotor()
-    time.sleep(1)
+    time.sleep(0.5)
     blinkLED(1,11,0.2)
     #soundSensor(1,11)
