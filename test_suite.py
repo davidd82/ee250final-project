@@ -19,7 +19,8 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 # get reading from adc 
 # mcp.read_adc(adc_channel)
 
-sound_sensor = 0
+sound_sensor = 0 #a0
+light_sensor = 1 #a1
 
 
 """def pushMotor():
@@ -58,5 +59,7 @@ def soundSensor(channel, pin):
 while True: 
     Port_Sound = 8 #D8
     while True:
-        print(grovepi.analogRead(sound_sensor))
-        time.sleep(.5)
+        print("Sound: " + grovepi.analogRead(sound_sensor))
+        time.sleep(1)
+        print("Light: " + grovepi.analogRead(light_sensor))
+        time.sleep(1)
