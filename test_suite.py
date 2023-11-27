@@ -56,6 +56,8 @@ def soundSensor(channel, pin):
         else:
             #print("dark")
             time.sleep(0.1)"""
+
+
 while True: 
     Port_Sound = 8 #D8
     while True:
