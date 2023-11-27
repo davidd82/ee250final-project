@@ -24,7 +24,7 @@ GPIO.setup(11,GPIO.OUT)
 
 def light_status(client, userdata, message):
     if (str(message.payload, "utf-8") == "LIGHT_STATUS"):
-       for i in range (50):
+       for i in range (4):
             light_val = mcp.read_adc(0)
             print(light_val)
 
@@ -33,12 +33,11 @@ def light_status(client, userdata, message):
             else:
                 print("dark")
             time.sleep(0.1)
-
     #print(message.payload.decode("utf-8"))
 
 def sound_status(client, userdata, message):
     count = 0
-    for i in range(50):
+    for i in range(4):
         sound_val = mcp.read_adc(1)
         print(sound_val)
 
