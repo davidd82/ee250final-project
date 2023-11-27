@@ -2,6 +2,7 @@ import time
 import RPi.GPIO as GPIO
 import Adafruit_GPIO.SPI as SPI
 import Adafruit_MCP3008
+import grovepi
 
 #using physical pin 11 to blink an LED
 GPIO.setmode(GPIO.BOARD)
@@ -18,7 +19,10 @@ mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
 # get reading from adc 
 # mcp.read_adc(adc_channel)
 
-def pushMotor():
+sound_sensor = 0
+
+
+"""def pushMotor():
     GPIO.output(15, GPIO.HIGH)
     time.sleep(2)
     GPIO.output(15, GPIO.LOW)
@@ -50,9 +54,9 @@ def soundSensor(channel, pin):
             #time.sleep(0.1)
         else:
             #print("dark")
-            time.sleep(0.1)
+            time.sleep(0.1)"""
 while True: 
-    pushMotor()
-    time.sleep(1)
-    blinkLED(1,11,0.2)
-    #soundSensor(1,11)
+    Port_Sound = 8 #D8
+    while True:
+        print(grovepi.analogRead(sound_sensor))
+        time.sleep(.5)
