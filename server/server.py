@@ -19,6 +19,7 @@ def my_link():
   print ('Connected to server')
   client.loop_start()
   client.publish("davidd82/light", "LIGHT_STATUS")
+  client.publish("davidd82/sound", "SOUND_STATUS")
   print('Published message')
 
   

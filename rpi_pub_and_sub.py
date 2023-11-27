@@ -6,35 +6,62 @@ Run rpi_pub_and_sub.py on your Raspberry Pi."""
 
 import paho.mqtt.client as mqtt
 import time
+
+# Import SPI library (for hardware SPI) and MCP3008 library.
+import Adafruit_GPIO.SPI as SPI
+import Adafruit_MCP3008
+import RPi.GPIO as GPIO
+
 from grovepi import *
 from grove_rgb_lcd import *
 
-led = 4
-ultrasonic_ranger = 3
-button = 2
+# Hardware SPI configuration
+SPI_PORT   = 0
+SPI_DEVICE = 0
+mcp = Adafruit_MCP3008.MCP3008(spi=SPI.SpiDev(SPI_PORT, SPI_DEVICE))
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(11,GPIO.OUT)
 
-pinMode(led, "OUTPUT")
-pinMode(button, "INPUT")
+def light_status(client, userdata, message):
+    if (str(message.payload, "utf-8") == "LIGHT_STATUS"):
+       for i in range (50):
+            light_val = mcp.read_adc(0)
+            print(light_val)
 
-def led_status(client, userdata, message):
-    if (str(message.payload, "utf-8") == "LED_ON"):
-        digitalWrite(led,1)
-    elif(str(message.payload, "utf-8") == "LED_OFF"):
-        digitalWrite(led,0)
+            if (light_val > 100):
+                print("bright")
+            else:
+                print("dark")
+            time.sleep(0.1)
+
     #print(message.payload.decode("utf-8"))
 
-def lcd_status(client, userdata, message):
-    setText_norefresh(str(message.payload.decode("utf-8")))
+def sound_status(client, userdata, message):
+    count = 0
+    for i in range(50):
+        sound_val = mcp.read_adc(1)
+        print(sound_val)
+
+        if count == 1:
+            count = 0
+            GPIO.output(11, GPIO.LOW)
+
+        if (sound_val > 500):
+            GPIO.output(11, GPIO.HIGH)
+            count+=1
+            
+        time.sleep(0.1)
+
     #print(message.payload.decode("utf-8"))
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
     #subscribe to topics of interest here
-    client.subscribe("davidd82/led")
-    client.message_callback_add("davidd82/led", led_status)
-    client.subscribe("davidd82/lcd")
-    client.message_callback_add("davidd82/lcd", lcd_status)
+    client.subscribe("davidd82/light")
+    client.message_callback_add("davidd82/light", light_status)
+    client.subscribe("davidd82/sound")
+    client.message_callback_add("davidd82/sound", sound_status)
 
 #Default message callback. Please use custom callbacks.
 def on_message(client, userdata, msg):
@@ -50,9 +77,4 @@ if __name__ == '__main__':
 
     time.sleep(1)
     while True:
-        button_status = digitalRead(button)
-        if button_status:
-            client.publish("davidd82/button", "Button pressed!")
-        distance = ultrasonicRead(ultrasonic_ranger)
-        client.publish("davidd82/ultrasonicRanger", distance)
         time.sleep(1)
