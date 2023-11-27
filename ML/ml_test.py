@@ -15,6 +15,5 @@ with open("model.pickle", "rb") as f:
 lounge = pd.read_csv("loungetest.csv")
 
 X = lounge[["sound","light"]].to_numpy()
-y = lounge[["availability"]].to_numpy()
 
-print(clf.predict(X))
+print(round(np.mean(clf.predict(X))))
