@@ -28,30 +28,16 @@ def light_status(client, userdata, message):
             light_val = mcp.read_adc(0)
             print(light_val)
 
-            if (light_val > 100):
-                print("bright")
-            else:
-                print("dark")
-            time.sleep(0.1)
-    #print(message.payload.decode("utf-8"))
+            time.sleep(1)
 
 def sound_status(client, userdata, message):
     count = 0
     for i in range(5):
         sound_val = mcp.read_adc(1)
         print(sound_val)
-
-        if count == 1:
-            count = 0
-            GPIO.output(11, GPIO.LOW)
-
-        if (sound_val > 500):
-            GPIO.output(11, GPIO.HIGH)
-            count+=1
             
-        time.sleep(0.1)
+        time.sleep(1)
 
-    #print(message.payload.decode("utf-8"))
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
