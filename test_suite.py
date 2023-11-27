@@ -59,7 +59,7 @@ def soundSensor(channel, pin):
 while True: 
     Port_Sound = 8 #D8
     while True:
-        print("Sound: " + grovepi.analogRead(sound_sensor))
+        print("Sound: " + str(grovepi.analogRead(sound_sensor)))
         time.sleep(1)
-        print("Light: " + grovepi.analogRead(light_sensor))
+        print("Light: " + str(grovepi.analogRead(light_sensor)))
         time.sleep(1)
