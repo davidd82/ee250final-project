@@ -7,13 +7,6 @@ Run rpi_pub_and_sub.py on your Raspberry Pi."""
 import paho.mqtt.client as mqtt
 import time
 
-import sys
-sys.path.append('../ML')
-from ML.ml_predict import predict
-
-sys.path.append('../encryption')
-from encryption.sendRPI import send
-
 # importing pandas as pd
 import pandas as pd
 
@@ -24,6 +17,9 @@ import RPi.GPIO as GPIO
 
 from grovepi import *
 from grove_rgb_lcd import *
+
+from ml_predict import predict
+from sendRPI import send
 
 # Hardware SPI configuration
 SPI_PORT   = 0
