@@ -1,3 +1,0 @@
-function publish_message() {
-    
-} 
