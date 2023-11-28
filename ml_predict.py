@@ -13,7 +13,7 @@ def predict():
         # Load the classifier from the file
         clf = pickle.load(f)
 
-    lounge = pd.read_csv("../data-points.csv")
+    lounge = pd.read_csv("data-points.csv")
 
     X = lounge[["sound","light"]].to_numpy()
 
