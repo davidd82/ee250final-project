@@ -4,6 +4,7 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 def avaibility(client, userdata, message):
+  print(message)
   return message
 
 def on_connect(client, userdata, flags, rc):
@@ -21,7 +22,7 @@ def my_link():
   client.connect(host= "test.mosquitto.org", port= 1883, keepalive=60)
   print ('Connected to server')
   client.subscribe("davidd82/available")
-  message = client.message_callback_add("davidd82/available", avaibility)
+  client.message_callback_add("davidd82/available", avaibility)
   client.loop_start()
   client.publish("davidd82/light_and_sound", "STATUS")
   client.publish("davidd82/csv", "MAKE_CSV")
