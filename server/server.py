@@ -3,10 +3,11 @@ import time
 from flask import Flask, render_template
 app = Flask(__name__)
 
-avaibility_global = ""
+global avaibility_global
 
 def avaibility(client, userdata, message):
   print("Lounge Availability is " + str(message.payload, "utf-8"))
+  global avaibility_global
   avaibility_global = str(message.payload, "utf-8")
 
 def on_connect(client, userdata, flags, rc):
@@ -33,7 +34,7 @@ def my_link():
 
   time.sleep(10)
 
-  print(avaibility_global)
+  print("test" + avaibility_global)
   if(avaibility_global == "0"):
     return("Unavailable")
   elif(avaibility_global == "1"):
