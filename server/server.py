@@ -4,8 +4,8 @@ from flask import Flask, render_template
 app = Flask(__name__)
 
 def avaibility(client, userdata, message):
-  print(message)
-  return message
+  print(str(message))
+  #return message
 
 def on_connect(client, userdata, flags, rc):
   print("Connected to server (i.e., broker) with result code "+str(rc))
