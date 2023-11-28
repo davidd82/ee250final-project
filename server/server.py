@@ -3,10 +3,10 @@ import time
 from flask import Flask, render_template
 app = Flask(__name__)
 
-avaibility_global = -1
+avaibility_global = ""
 
 def avaibility(client, userdata, message):
-  avaibility_global = int(message.payload, "utf-8")
+  print(str(message.payload, "utf-8"))
 
 def on_connect(client, userdata, flags, rc):
   print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -29,6 +29,8 @@ def my_link():
   client.publish("davidd82/csv", "MAKE_CSV")
 
   print('Published message')
+
+  time.sleep(10)
 
   if(avaibility_global == 0):
     return("Unavailable")
