@@ -8,8 +8,6 @@ avaibility_global = ""
 def avaibility(client, userdata, message):
   print("Lounge Availability is " + str(message.payload, "utf-8"))
   avaibility_global = str(message.payload, "utf-8")
-  print(avaibility_global)
-
 
 def on_connect(client, userdata, flags, rc):
   print("Connected to server (i.e., broker) with result code "+str(rc))
@@ -35,6 +33,7 @@ def my_link():
 
   time.sleep(10)
 
+  print(avaibility_global)
   if(avaibility_global == "0"):
     return("Unavailable")
   elif(avaibility_global == "1"):
