@@ -7,6 +7,12 @@ Run rpi_pub_and_sub.py on your Raspberry Pi."""
 import paho.mqtt.client as mqtt
 import time
 
+import sys
+sys.path.append('../ML')
+from ML.ml_predict import predict
+
+sys.path.append('../encryption')
+from encryption.sendRPI import send
 
 # importing pandas as pd
 import pandas as pd
@@ -57,6 +63,14 @@ def make_csv(client, userdata, message):
     print(df)
 
     df.to_csv('data-points.csv', header = True, index = False)
+
+    #using data-points.csv to predict availabity
+    prediction = predict()
+
+    #use sendRPI to encrypt message which is saved in the encryption folder
+    send(prediction)
+
+    #now send the encrypted file to the server
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
