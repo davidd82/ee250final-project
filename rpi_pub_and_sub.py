@@ -19,7 +19,6 @@ from grovepi import *
 from grove_rgb_lcd import *
 
 from ml_predict import predict
-from sendRPI import send
 
 # Hardware SPI configuration
 SPI_PORT   = 0
@@ -63,10 +62,8 @@ def make_csv(client, userdata, message):
     #using data-points.csv to predict availabity
     prediction = predict()
 
-    #use sendRPI to encrypt message which is saved in the encryption folder
-    send(prediction)
-
-    #now send the encrypted file to the server
+    #now send the prediction to the server
+    client.publish("davidd82/available", prediction)
 
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))

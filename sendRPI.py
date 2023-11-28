@@ -11,7 +11,7 @@ import sys
 # RPI encrypts message with sym key and uses priv key to make the hash and saves it
 
 def send(availability):
-    with open("encryption/rpi_priv_key.pem", "rb") as key_file:
+    with open("rpi_priv_key.pem", "rb") as key_file:
         # Use the appropriate function "load_pem_private_key" or
         # "load_pem_public_key"
         rpi_priv_key = serialization.load_pem_private_key(
@@ -19,7 +19,7 @@ def send(availability):
             password=None,
         )
 
-    with open("encryption/laptop_pub_key.pem", "rb") as key_file:
+    with open("laptop_pub_key.pem", "rb") as key_file:
         # Use the appropriate function "load_pem_private_key" or
         # "load_pem_public_key"
         laptop_pub_key = serialization.load_pem_public_key(
@@ -36,7 +36,7 @@ def send(availability):
 
     # symmetrical key
 
-    with open("encryption/symkey.key", "rb") as key_file:
+    with open("symkey.key", "rb") as key_file:
         symkey = key_file.read()
 
     cipher_suite = Fernet(symkey)
