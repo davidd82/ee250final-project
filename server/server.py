@@ -30,7 +30,7 @@ def my_link():
   print('Published message')
 
   
-  return str(message)
+  return "a"
 
 if __name__ == '__main__':
   app.run(debug=True)
