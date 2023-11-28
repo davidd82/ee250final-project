@@ -58,6 +58,9 @@ def make_csv(client, userdata, message):
 
     df.to_csv('data-points.csv', header = True, index = False)
 
+    client.publish("davidd82/available", )
+
+
 def on_connect(client, userdata, flags, rc):
     print("Connected to server (i.e., broker) with result code "+str(rc))
 
