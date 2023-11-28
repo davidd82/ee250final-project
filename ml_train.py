@@ -5,7 +5,6 @@ import pandas as pd
 
 from matplotlib import pyplot as plt
 plt.rcParams['figure.figsize'] = (10,7)
-import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 
