@@ -8,3 +8,5 @@ Instructions:
 3. On RPI, stay in the main directory of ee250final-project and run python3 rpi_pub_and_sub.py
 4. On laptop, open web browser and go to localhost:5000 to open the flask webpage and click the button
 5. Wait ~10 seconds and the webpage should print either available or unavailable.
+
+Libraries Used: paho.mqtt.client, pandas, Adafruit_GPIO.SPI, Adafruit_MCP3008, RPi.GPIO, grovepi, flask, pickle, numpy, sklearn, sys, os, time
